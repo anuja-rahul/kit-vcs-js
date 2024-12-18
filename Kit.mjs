@@ -29,6 +29,8 @@ class Kit {
     const fileData = await fs.readFile(fileToBeAdded, { encoding: "utf-8" });
     const fileHash = this.hashObject(fileData);
     console.log(fileHash);
+    const newFileHashedObjectPath = path.join(this.objectsPath, fileHash);
+    await fs.writeFile(newFileHashedObjectPath, fileData);
   }
 }
 
