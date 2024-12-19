@@ -71,10 +71,24 @@ class Kit {
       return null;
     }
   }
+
+  async log() {
+    let currentCommitHash = await this.getCurrentHead();
+    while (currentCommitHash) {
+      const commitData = JSON.parse(
+        await fs.readFile(path.join(this.objectsPath, currentCommitHash), {
+          encoding: "utf-8",
+        })
+      );
+      console.log(`Commit: ${currentCommitHash}\nDate: ${commitData.timeStamp}\n\n${commitData.message}\n\n`);
+      currentCommitHash = commitData.parent;
+    }
+  }
 }
 
 (async () => {
   const kit = new Kit();
   await kit.add("test.txt");
-  await kit.commit("Initial commit");
+  await kit.commit("third commit");
+  await kit.log();
 })();
