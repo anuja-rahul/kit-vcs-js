@@ -10,5 +10,8 @@
   "author": "",
   "license": "ISC",
   "type": "string",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "chalk": "^5.4.0"
+  }
 }

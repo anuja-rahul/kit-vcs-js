@@ -80,6 +80,7 @@ class Kit {
           encoding: "utf-8",
         })
       );
+      console.log(`======================================================================================\n`)
       console.log(`Commit: ${currentCommitHash}\nDate: ${commitData.timeStamp}\n\n${commitData.message}\n\n`);
       currentCommitHash = commitData.parent;
     }
@@ -89,6 +90,6 @@ class Kit {
 (async () => {
   const kit = new Kit();
   await kit.add("test.txt");
-  await kit.commit("third commit");
+  await kit.commit("fourth commit");
   await kit.log();
 })();
