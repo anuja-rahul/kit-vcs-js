@@ -31,7 +31,10 @@ class Kit {
     console.log(fileHash);
     const newFileHashedObjectPath = path.join(this.objectsPath, fileHash);
     await fs.writeFile(newFileHashedObjectPath, fileData);
+    // TODO: Add the file to the staging area
+    console.log(`Added ${fileToBeAdded}`);
   }
 }
 
 const kit = new Kit();
+kit.add("test.txt");
