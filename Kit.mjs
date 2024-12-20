@@ -80,9 +80,27 @@ class Kit {
           encoding: "utf-8",
         })
       );
-      console.log(`======================================================================================\n`)
-      console.log(`Commit: ${currentCommitHash}\nDate: ${commitData.timeStamp}\n\n${commitData.message}\n\n`);
+      console.log(
+        `======================================================================================\n`
+      );
+      console.log(
+        `Commit: ${currentCommitHash}\nDate: ${commitData.timeStamp}\n\n${commitData.message}\n\n`
+      );
       currentCommitHash = commitData.parent;
+    }
+  }
+
+  async showCommitDiff(commitHash) {
+    const commitData = JSON.parse();
+  }
+
+  async getCommitData(commitHash) {
+    const commitPath = path.join(this.objectsPath, commitHash);
+    try {
+      return await fs.readFile(commitPath, { encoding: "utf-8" });
+    } catch (error) {
+      console.log("Failed to read commit data");
+      return null;
     }
   }
 }
