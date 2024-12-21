@@ -91,7 +91,7 @@ class Kit {
   }
 
   async showCommitDiff(commitHash) {
-    const commitData = JSON.parse();
+    const commitData = JSON.parse(await this.getCommitData(commitHash));
   }
 
   async getCommitData(commitHash) {
