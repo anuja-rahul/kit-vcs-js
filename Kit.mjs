@@ -1,8 +1,13 @@
+#!/usr/bin/env node
+
 import path from "path";
 import fs from "fs/promises";
 import crypto from "crypto";
 import { diffLines } from "diff";
 import chalk from "chalk";
+import { Command } from "commander";
+
+const program = new Command();
 
 class Kit {
   constructor(repoPath = ".") {
@@ -19,7 +24,7 @@ class Kit {
       await fs.writeFile(this.headPath, "", { flag: "wx" });
       await fs.writeFile(this.indexPath, JSON.stringify([]), { flag: "wx" });
     } catch (error) {
-      console.log("Kit already initialized");
+      console.log("\nKit already initialized");
     }
   }
 
@@ -98,9 +103,9 @@ class Kit {
       console.log("Commit not found");
       return;
     }
-    console.log(`Changes in the last commit are: `);
+    console.log(`\nChanges in the last commit are: `);
     for (const file of commitData.files) {
-      console.log(`File: ${file.path}`);
+      console.log(`File: ${file.path}\n`);
       const fileContent = await this.getFileContent(file.hash);
       console.log(fileContent);
 
@@ -119,9 +124,9 @@ class Kit {
           // console.log(diff);
           diff.forEach((part) => {
             if (part.added) {
-              process.stdout.write(chalk.green(part.value));
+              process.stdout.write(chalk.green("++" + part.value));
             } else if (part.removed) {
-              process.stdout.write(chalk.red(part.value));
+              process.stdout.write(chalk.red("--" + part.value));
             } else {
               process.stdout.write(chalk.grey(part.value));
             }
@@ -161,12 +166,38 @@ class Kit {
   }
 }
 
-(async () => {
-  const kit = new Kit();
-  // await kit.add("test.txt");
-  // await kit.add("test2.txt");
-  // await kit.commit("fifth commit");
+// (async () => {
+//   const kit = new Kit();
+//   // await kit.add("test.txt");
+//   // await kit.add("test2.txt");
+//   // await kit.commit("fifth commit");
 
+//   await kit.log();
+//   await kit.showCommitDiff("cc98f3cdff123e496cc77cda47a2945bc561dbc9");
+// })();
+
+program.command("init").action(async () => {
+  const kit = new Kit();
+});
+
+program.command("add <file>").action(async (file) => {
+  const kit = new Kit();
+  await kit.add(file);
+});
+
+program.command("commit <message>").action(async (message) => {
+  const kit = new Kit();
+  await kit.commit(message);
+});
+
+program.command("log").action(async () => {
+  const kit = new Kit();
   await kit.log();
-  await kit.showCommitDiff("cc98f3cdff123e496cc77cda47a2945bc561dbc9");
-})();
+});
+
+program.command("show <commitHash>").action(async (commitHash) => {
+  const kit = new Kit();
+  await kit.showCommitDiff(commitHash);
+});
+
+program.parse(process.argv);
