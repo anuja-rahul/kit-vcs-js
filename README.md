@@ -27,7 +27,7 @@ Kit is a basic version control system (VCS) built using JavaScript. It provides 
 
 To get started with Kit, follow these steps:
 
-1. **Install Kit**: Follow the installation instructions above to clone the repository and install dependencies.
+1. **Install Kit**: Follow the installation instructions below to clone the repository and install dependencies.
 2. **Initialize a Repository**: Use the `./Kit.mjs init` command to create a new repository.
 3. **Track Changes**: Add files to the repository using the `./Kit.mjs add <file>` command.
 4. **Commit Changes**: Commit your changes with a message using the `./Kit.mjs commit "Your commit message"` command.
