@@ -124,9 +124,9 @@ class Kit {
           // console.log(diff);
           diff.forEach((part) => {
             if (part.added) {
-              process.stdout.write(chalk.green("++" + part.value));
+              process.stdout.write(chalk.green("+ " + part.value));
             } else if (part.removed) {
-              process.stdout.write(chalk.red("--" + part.value));
+              process.stdout.write(chalk.red("- " + part.value));
             } else {
               process.stdout.write(chalk.grey(part.value));
             }
