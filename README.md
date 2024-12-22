@@ -28,10 +28,10 @@ Kit is a basic version control system (VCS) built using JavaScript. It provides 
 To get started with Kit, follow these steps:
 
 1. **Install Kit**: Follow the installation instructions above to clone the repository and install dependencies.
-2. **Initialize a Repository**: Use the `./kit.mjs init` command to create a new repository.
-3. **Track Changes**: Add files to the repository using the `./kit.mjs add <file>` command.
-4. **Commit Changes**: Commit your changes with a message using the `./kit.mjs commit "Your commit message"` command.
-5. **View Logs and Differences**: Use `./kit.mjs log` to view commit logs and `./kit.mjs show <commitHash>` to see differences between commits.
+2. **Initialize a Repository**: Use the `./Kit.mjs init` command to create a new repository.
+3. **Track Changes**: Add files to the repository using the `./Kit.mjs add <file>` command.
+4. **Commit Changes**: Commit your changes with a message using the `./Kit.mjs commit "Your commit message"` command.
+5. **View Logs and Differences**: Use `./Kit.mjs log` to view commit logs and `./Kit.mjs show <commitHash>` to see differences between commits.
 
 By following these steps, you can start managing your project's version control with Kit.
 
@@ -52,7 +52,7 @@ npm install
 To initialize a new Kit repository, run the following command:
 
 ```bash
-./kit.mjs init
+./Kit.mjs init
 ```
 
 This will create a `.kit` directory in your project with the necessary files and directories.
@@ -62,7 +62,7 @@ This will create a `.kit` directory in your project with the necessary files and
 To track changes in your project, use the following command:
 
 ```bash
-./kit.mjs add <file>
+./Kit.mjs add <file>
 ```
 
 ### 💾 Commit Changes
@@ -70,7 +70,7 @@ To track changes in your project, use the following command:
 To commit changes, use the following command:
 
 ```bash
-./kit.mjs commit "Your commit message"
+./Kit.mjs commit "Your commit message"
 ```
 
 ### 📜 View Commit Logs
@@ -78,7 +78,7 @@ To commit changes, use the following command:
 To view the commit logs, use the following command:
 
 ```bash
-./kit.mjs log
+./Kit.mjs log
 ```
 
 ### 🔍 Show Commit Differences
@@ -86,7 +86,7 @@ To view the commit logs, use the following command:
 To show the differences between commits, use the following command:
 
 ```bash
-./kit.mjs show <commitHash>
+./Kit.mjs show <commitHash>
 ```
 
 ## 📄 License
