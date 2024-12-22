@@ -7,7 +7,7 @@ Kit is a basic version control system (VCS) built using JavaScript. It provides 
 - [Features](#-features)
 - [Getting Started](#-getting-started)
 - [Installation](#-installation)
-- [Usage](#-usage)
+- [Usage](#%EF%B8%8F-usage)
   - [Initialize a Repository](#-initialize-a-repository)
   - [Track Changes](#-track-changes)
   - [Commit Changes](#-commit-changes)
