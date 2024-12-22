@@ -166,16 +166,6 @@ class Kit {
   }
 }
 
-// (async () => {
-//   const kit = new Kit();
-//   // await kit.add("test.txt");
-//   // await kit.add("test2.txt");
-//   // await kit.commit("fifth commit");
-
-//   await kit.log();
-//   await kit.showCommitDiff("cc98f3cdff123e496cc77cda47a2945bc561dbc9");
-// })();
-
 program.command("init").action(async () => {
   const kit = new Kit();
 });
