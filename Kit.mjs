@@ -1,6 +1,8 @@
 import path from "path";
 import fs from "fs/promises";
 import crypto from "crypto";
+import { diffLines } from "diff";
+import chalk from "chalk";
 
 class Kit {
   constructor(repoPath = ".") {
@@ -92,6 +94,55 @@ class Kit {
 
   async showCommitDiff(commitHash) {
     const commitData = JSON.parse(await this.getCommitData(commitHash));
+    if (!commitData) {
+      console.log("Commit not found");
+      return;
+    }
+    console.log(`Changes in the last commit are: `);
+    for (const file of commitData.files) {
+      console.log(`File: ${file.path}`);
+      const fileContent = await this.getFileContent(file.hash);
+      console.log(fileContent);
+
+      if (commitData.parent) {
+        const parentCommitData = JSON.parse(
+          await this.getCommitData(commitData.parent)
+        );
+        const getParentFileContent = await this.getParentFileContent(
+          parentCommitData,
+          file.path
+        );
+
+        if (getParentFileContent !== undefined) {
+          console.log(`\nDiff:`);
+          const diff = diffLines(getParentFileContent, fileContent);
+          // console.log(diff);
+          diff.forEach((part) => {
+            if (part.added) {
+              process.stdout.write(chalk.green(part.value));
+            } else if (part.removed) {
+              process.stdout.write(chalk.red(part.value));
+            } else {
+              process.stdout.write(chalk.grey(part.value));
+            }
+          });
+          console.log("\n");
+        } else {
+          console.log("File not found in parent commit");
+        }
+      } else {
+        console.log("First commit, no parent");
+      }
+    }
+  }
+
+  async getParentFileContent(parentCommitData, filePath) {
+    const parentFile = parentCommitData.files.find(
+      (file) => file.path === filePath
+    );
+    if (parentFile) {
+      return await this.getFileContent(parentFile.hash);
+    }
   }
 
   async getCommitData(commitHash) {
@@ -99,15 +150,23 @@ class Kit {
     try {
       return await fs.readFile(commitPath, { encoding: "utf-8" });
     } catch (error) {
-      console.log("Failed to read commit data");
+      console.log("Failed to read commit data ", error);
       return null;
     }
+  }
+
+  async getFileContent(fileHash) {
+    const objectsPath = path.join(this.objectsPath, fileHash);
+    return await fs.readFile(objectsPath, { encoding: "utf-8" });
   }
 }
 
 (async () => {
   const kit = new Kit();
-  await kit.add("test.txt");
-  await kit.commit("fourth commit");
+  // await kit.add("test.txt");
+  // await kit.add("test2.txt");
+  // await kit.commit("fifth commit");
+
   await kit.log();
+  await kit.showCommitDiff("cc98f3cdff123e496cc77cda47a2945bc561dbc9");
 })();
